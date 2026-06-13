@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TcmQuestionDetailMapper">
+    
+    <resultMap type="TcmQuestionDetail" id="TcmQuestionDetailResult">
+        <result property="id"    column="id"    />
+        <result property="caseNo"    column="case_no"    />
+        <result property="module"    column="module"    />
+        <result property="questionsName"    column="questions_name"    />
+        <result property="optionA"    column="option_a"    />
+        <result property="optionB"    column="option_b"    />
+        <result property="optionC"    column="option_c"    />
+        <result property="optionD"    column="option_d"    />
+        <result property="questionsAnswer"    column="questions_answer"    />
+        <result property="imageUrl"    column="image_url"    />
+        <result property="remark"    column="remark"    />
+        <result property="urlType"    column="url_type"    />
+        <result property="extend1"    column="extend1"    />
+        <result property="extend2"    column="extend2"    />
+        <result property="answer"    column="answer"    />
+        <result property="questionNo"    column="question_no"    />
+    </resultMap>
+
+    <sql id="selectTcmQuestionDetailVo">
+        select id, case_no, module, questions_name, option_a, option_b, option_c, option_d, questions_answer, image_url, remark, url_type, extend1, extend2, answer, question_no from tcm_question_detail
+    </sql>
+
+    <select id="selectTcmQuestionDetailList" parameterType="TcmQuestionDetail" resultMap="TcmQuestionDetailResult">
+        <include refid="selectTcmQuestionDetailVo"/>
+        <where>  
+            <if test="caseNo != null  and caseNo != ''"> and case_no = #{caseNo}</if>
+            <if test="module != null  and module != ''"> and module = #{module}</if>
+            <if test="questionsName != null  and questionsName != ''"> and questions_name like concat('%', #{questionsName}, '%')</if>
+            <if test="optionA != null  and optionA != ''"> and option_a = #{optionA}</if>
+            <if test="optionB != null  and optionB != ''"> and option_b = #{optionB}</if>
+            <if test="optionC != null  and optionC != ''"> and option_c = #{optionC}</if>
+            <if test="optionD != null  and optionD != ''"> and option_d = #{optionD}</if>
+            <if test="questionsAnswer != null  and questionsAnswer != ''"> and questions_answer = #{questionsAnswer}</if>
+            <if test="imageUrl != null  and imageUrl != ''"> and image_url = #{imageUrl}</if>
+            <if test="urlType != null  and urlType != ''"> and url_type = #{urlType}</if>
+            <if test="extend1 != null  and extend1 != ''"> and extend1 = #{extend1}</if>
+            <if test="extend2 != null  and extend2 != ''"> and extend2 = #{extend2}</if>
+            <if test="answer != null  and answer != ''"> and answer = #{answer}</if>
+            <if test="questionNo != null  and questionNo != ''"> and question_no like concat('%', #{questionNo}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectTcmQuestionDetailById" parameterType="Long" resultMap="TcmQuestionDetailResult">
+        <include refid="selectTcmQuestionDetailVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTcmQuestionDetail" parameterType="TcmQuestionDetail" useGeneratedKeys="true" keyProperty="id">
+        insert into tcm_question_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="caseNo != null">case_no,</if>
+            <if test="module != null">module,</if>
+            <if test="questionsName != null">questions_name,</if>
+            <if test="optionA != null">option_a,</if>
+            <if test="optionB != null">option_b,</if>
+            <if test="optionC != null">option_c,</if>
+            <if test="optionD != null">option_d,</if>
+            <if test="questionsAnswer != null">questions_answer,</if>
+            <if test="imageUrl != null">image_url,</if>
+            <if test="remark != null">remark,</if>
+            <if test="urlType != null">url_type,</if>
+            <if test="extend1 != null">extend1,</if>
+            <if test="extend2 != null">extend2,</if>
+            <if test="answer != null">answer,</if>
+            <if test="questionNo != null">question_no,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="caseNo != null">#{caseNo},</if>
+            <if test="module != null">#{module},</if>
+            <if test="questionsName != null">#{questionsName},</if>
+            <if test="optionA != null">#{optionA},</if>
+            <if test="optionB != null">#{optionB},</if>
+            <if test="optionC != null">#{optionC},</if>
+            <if test="optionD != null">#{optionD},</if>
+            <if test="questionsAnswer != null">#{questionsAnswer},</if>
+            <if test="imageUrl != null">#{imageUrl},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="urlType != null">#{urlType},</if>
+            <if test="extend1 != null">#{extend1},</if>
+            <if test="extend2 != null">#{extend2},</if>
+            <if test="answer != null">#{answer},</if>
+            <if test="questionNo != null">#{questionNo},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTcmQuestionDetail" parameterType="TcmQuestionDetail">
+        update tcm_question_detail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="caseNo != null">case_no = #{caseNo},</if>
+            <if test="module != null">module = #{module},</if>
+            <if test="questionsName != null">questions_name = #{questionsName},</if>
+            <if test="optionA != null">option_a = #{optionA},</if>
+            <if test="optionB != null">option_b = #{optionB},</if>
+            <if test="optionC != null">option_c = #{optionC},</if>
+            <if test="optionD != null">option_d = #{optionD},</if>
+            <if test="questionsAnswer != null">questions_answer = #{questionsAnswer},</if>
+            <if test="imageUrl != null">image_url = #{imageUrl},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="urlType != null">url_type = #{urlType},</if>
+            <if test="extend1 != null">extend1 = #{extend1},</if>
+            <if test="extend2 != null">extend2 = #{extend2},</if>
+            <if test="answer != null">answer = #{answer},</if>
+            <if test="questionNo != null">question_no = #{questionNo},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTcmQuestionDetailById" parameterType="Long">
+        delete from tcm_question_detail where id = #{id}
+    </delete>
+
+    <delete id="deleteTcmQuestionDetailByIds" parameterType="String">
+        delete from tcm_question_detail where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+</mapper>

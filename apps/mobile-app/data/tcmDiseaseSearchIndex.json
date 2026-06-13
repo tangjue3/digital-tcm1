@@ -1,0 +1,6 @@
+{
+	"source": "GB/T 15657-2021 A类中医疾病名术语第一阶段核心子集",
+	"note": "第一阶段搜索索引由 src/data/tcmDiseaseTree.json 在前端运行时展开生成；保留本文件便于后续替换为后端或批量导入索引。",
+	"fields": ["name", "displayName", "aliases", "keywords", "pinyin", "abbr"],
+	"items": []
+}

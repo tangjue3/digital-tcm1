@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TcmAppUserProfileMapper">
+
+    <resultMap type="TcmAppUserProfile" id="TcmAppUserProfileResult">
+        <id property="profileId" column="profile_id" />
+        <result property="userId" column="user_id" />
+        <result property="userName" column="user_name" />
+        <result property="nickName" column="nick_name" />
+        <result property="phonenumber" column="phonenumber" />
+        <result property="sex" column="sex" />
+        <result property="age" column="age" />
+        <result property="voiceFile" column="voice_file" />
+        <result property="tongueImage" column="tongue_image" />
+        <result property="faceImage" column="face_image" />
+        <result property="createTime" column="create_time" />
+        <result property="updateTime" column="update_time" />
+        <result property="collectTime" column="collect_time" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="selectAppUserProfileVo">
+        select
+            p.id as profile_id,
+            u.user_id,
+            u.user_name,
+            u.nick_name,
+            u.phonenumber,
+            coalesce(nullif(p.gender, ''), u.sex) as sex,
+            p.age,
+            p.voice_file,
+            p.tongue_image,
+            p.face_image,
+            u.create_time,
+            p.update_time,
+            coalesce(p.update_time, p.create_time) as collect_time,
+            p.remark
+        from tcm_app_user_profile p
+        left join sys_user u on u.user_id = p.user_id
+    </sql>
+
+    <select id="selectAppUserProfileList" parameterType="TcmAppUserProfile" resultMap="TcmAppUserProfileResult">
+        <include refid="selectAppUserProfileVo" />
+        <where>
+            u.del_flag = '0'
+            <if test="userId != null"> and u.user_id = #{userId}</if>
+            <if test="userName != null and userName != ''">
+                and (u.user_name like concat('%', #{userName}, '%') or u.nick_name like concat('%', #{userName}, '%'))
+            </if>
+            <if test="phonenumber != null and phonenumber != ''">
+                and (u.phonenumber like concat('%', #{phonenumber}, '%') or u.user_name like concat('%', #{phonenumber}, '%'))
+            </if>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                and date_format(u.create_time,'%y%m%d') &gt;= date_format(#{params.beginTime},'%y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                and date_format(u.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
+            </if>
+        </where>
+        order by coalesce(p.update_time, p.create_time) desc
+    </select>
+
+    <select id="selectAppUserProfileByUserId" parameterType="Long" resultMap="TcmAppUserProfileResult">
+        <include refid="selectAppUserProfileVo" />
+        where u.del_flag = '0' and u.user_id = #{userId}
+    </select>
+
+    <insert id="upsertAppUserProfile" parameterType="TcmAppUserProfile" useGeneratedKeys="true" keyProperty="profileId">
+        insert into tcm_app_user_profile (
+            user_id,
+            gender,
+            age,
+            voice_file,
+            tongue_image,
+            face_image,
+            remark,
+            create_time,
+            update_time
+        ) values (
+            #{userId},
+            #{sex},
+            #{age},
+            #{voiceFile},
+            #{tongueImage},
+            #{faceImage},
+            #{remark},
+            sysdate(),
+            sysdate()
+        )
+        on duplicate key update
+            gender = values(gender),
+            age = values(age),
+            voice_file = values(voice_file),
+            tongue_image = values(tongue_image),
+            face_image = values(face_image),
+            remark = values(remark),
+            update_time = sysdate()
+    </insert>
+
+    <delete id="deleteAppUserProfileByUserId" parameterType="Long">
+        delete from tcm_app_user_profile where user_id = #{userId}
+    </delete>
+</mapper>

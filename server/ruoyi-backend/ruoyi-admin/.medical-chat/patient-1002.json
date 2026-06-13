@@ -1,0 +1,51 @@
+{
+  "patientUserId" : 1002,
+  "patientName" : "ywb111",
+  "patientPhone" : "19055121842",
+  "doctorUserId" : 1,
+  "doctorName" : "若依",
+  "updatedTime" : "2026-05-13 13:29:11",
+  "messages" : [ {
+    "messageId" : "2ab7ca3e685b40b8add2769378ea3137",
+    "senderRole" : "patient",
+    "senderUserId" : 1002,
+    "senderName" : "ywb111",
+    "content" : "医生好，我肚子疼",
+    "sendTime" : "2026-04-27 10:51:52"
+  }, {
+    "messageId" : "d93c18c9318541ca8905460600bb751c",
+    "senderRole" : "doctor",
+    "senderUserId" : 1,
+    "senderName" : "若依",
+    "content" : "饮食宜清淡，避免辛辣刺激性食物。",
+    "sendTime" : "2026-04-27 10:53:43"
+  }, {
+    "messageId" : "0e14f20c05ae41609a87c370a4f4de0c",
+    "senderRole" : "patient",
+    "senderUserId" : 1002,
+    "senderName" : "ywb111",
+    "content" : "好的医生。我应该吃什么药比较好",
+    "sendTime" : "2026-04-27 10:54:12"
+  }, {
+    "messageId" : "c48ce1d715af4e809cf798dea8b5c065",
+    "senderRole" : "doctor",
+    "senderUserId" : 1,
+    "senderName" : "若依",
+    "content" : "请不要随便用药，您的情况需要进一步检查，建议到医院就诊。",
+    "sendTime" : "2026-04-27 10:54:42"
+  }, {
+    "messageId" : "424258f45dbd42bbbc2f225676b68f9c",
+    "senderRole" : "patient",
+    "senderUserId" : 1002,
+    "senderName" : "ywb111",
+    "content" : "你好医生，我最近手腕疼",
+    "sendTime" : "2026-04-30 12:39:39"
+  }, {
+    "messageId" : "58625bad307c42b0ac2e833465b89986",
+    "senderRole" : "patient",
+    "senderUserId" : 1002,
+    "senderName" : "ywb111",
+    "content" : "你好",
+    "sendTime" : "2026-05-13 13:29:11"
+  } ]
+}

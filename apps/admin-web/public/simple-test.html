@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Vue Test</title>
+</head>
+<body>
+    <div id="app">
+        <h1>Vue应用正在加载...</h1>
+        <p id="status">等待中...</p>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp, ref } = Vue
+
+        const app = createApp({
+            setup() {
+                const message = ref('Hello Vue 3!')
+                document.getElementById('status').textContent = 'Vue已加载成功！'
+                return { message }
+            },
+            template: `
+                <div style="padding: 20px; font-family: Arial, sans-serif;">
+                    <h1 style="color: green;">{{ message }}</h1>
+                    <p>如果看到这个，说明Vue 3正常工作。</p>
+                </div>
+            `
+        })
+
+        app.mount('#app')
+        document.getElementById('status').textContent = 'Vue应用已挂载！'
+    </script>
+</body>
+</html>

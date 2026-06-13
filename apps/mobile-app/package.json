@@ -1,0 +1,94 @@
+{
+  "id": "uni-tabbar",
+  "name": "爱上中医",
+  "displayName": "爱上中医",
+  "version": "0.0.9",
+  "description": "爱上中医",
+  "scripts": {
+    "dev:h5": "set UNI_INPUT_DIR=%cd%&& set UNI_CLI_CONTEXT=%cd%&& uni -p h5 --host 0.0.0.0",
+    "build:h5": "set UNI_INPUT_DIR=%cd%&& set UNI_CLI_CONTEXT=%cd%&& uni build -p h5"
+  },
+  "dcloudext": {
+    "category": [
+      "前端页面模板",
+      "uni-app前端项目模板"
+    ],
+    "sale": {
+      "regular": {
+        "price": "0.00"
+      },
+      "sourcecode": {
+        "price": "0.00"
+      }
+    },
+    "contact": {
+      "qq": ""
+    },
+    "declaration": {
+      "ads": "无",
+      "data": "无",
+      "permissions": "无"
+    },
+    "npmurl": ""
+  },
+  "repository": "",
+  "uni_modules": {
+    "platforms": {
+      "cloud": {
+        "tcb": "y",
+        "aliyun": "y"
+      },
+      "client": {
+        "App": {
+          "app-vue": "u",
+          "app-nvue": "u"
+        },
+        "H5-mobile": {
+          "Safari": "u",
+          "Android Browser": "u",
+          "微信浏览器(Android)": "u",
+          "QQ浏览器(Android)": "u"
+        },
+        "H5-pc": {
+          "Chrome": "u",
+          "IE": "u",
+          "Edge": "u",
+          "Firefox": "u",
+          "Safari": "u"
+        },
+        "小程序": {
+          "微信": "u",
+          "阿里": "u",
+          "百度": "u",
+          "字节跳动": "u",
+          "QQ": "u",
+          "京东": "u"
+        },
+        "快应用": {
+          "华为": "u",
+          "联盟": "u"
+        },
+        "Vue": {
+          "vue2": "u",
+          "vue3": "u"
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@dcloudio/uni-app": "^3.0.0-alpha-5000820260420001",
+    "@dcloudio/uni-components": "^3.0.0-alpha-5000820260420001",
+    "@dcloudio/uni-h5": "^3.0.0-alpha-5000820260420001",
+    "base-64": "^1.0.0",
+    "crypto-js": "^4.2.0",
+    "parser": "^0.1.4",
+    "url": "^0.11.4",
+    "utf8": "^3.0.0",
+    "vue": "^3.4.21",
+    "vue-i18n": "^11.3.2"
+  },
+  "devDependencies": {
+    "@dcloudio/vite-plugin-uni": "^3.0.0-alpha-5000820260420001",
+    "vite": "^5.2.8"
+  }
+}

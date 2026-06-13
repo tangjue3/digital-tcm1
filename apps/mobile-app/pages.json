@@ -1,0 +1,173 @@
+{
+	"pages": [
+		{
+			"path": "pages/Login/Login",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/register/register",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/guide/guide",
+			"style": {
+				"navigationBarTitleText": "信息采集"
+			}
+		},
+		{
+			"path": "pages/health-plan/health-plan",
+			"style": {
+				"navigationBarTitleText": "健康计划",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/expo/expo",
+			"style": {
+				"navigationBarTitleText": "健康博览",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/zice/zice",
+			"style": {
+				"navigationBarTitleText": "健康自测",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/details/details",
+			"style": {
+				"navigationBarTitleText": "详情",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/report/report",
+			"style": {
+				"navigationBarTitleText": "健康报告"
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "个人中心",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/chat/chat",
+			"style": {
+				"navigationBarTitleText": "智能问答",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/medical-chat/chat",
+			"style": {
+				"navigationBarTitleText": "云枢问答",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/voiceprint/voiceprint",
+			"style": {
+				"navigationBarTitleText": "声纹自测",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/voiceRes/voiceRes",
+			"style": {
+				"navigationBarTitleText": "结果分析",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/result/result",
+			"style": {
+				"navigationBarTitleText": "结果分析",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/photo/photo",
+			"style": {
+				"navigationBarTitleText": "舌诊",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/pulse/pulse",
+			"style": {
+				"navigationBarTitleText": "脉搏测试",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/consult/report/create/index",
+			"style": {
+				"navigationBarTitleText": "提交问诊报告",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/consult/report/list/index",
+			"style": {
+				"navigationBarTitleText": "我的报告",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/consult/report/detail/index",
+			"style": {
+				"navigationBarTitleText": "报告详情",
+				"navigationStyle": "custom"
+			}
+		}
+	],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "爱上中医",
+		"navigationBarBackgroundColor": "#fff",
+		"backgroundColor": "#fff"
+	},
+	"tabBar": {
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"color": "#8F8F94",
+		"selectedColor": "#007aff",
+		"list": [
+			{
+				"pagePath": "pages/health-plan/health-plan",
+				"iconPath": "static/tabimg/jh.png",
+				"selectedIconPath": "static/tabimg/jh1.png",
+				"text": "健康计划"
+			},
+			{
+				"pagePath": "pages/zice/zice",
+				"iconPath": "static/tabimg/zc.png",
+				"selectedIconPath": "static/tabimg/zc1.png",
+				"text": "健康自测"
+			},
+			{
+				"pagePath": "pages/expo/expo",
+				"iconPath": "static/tabimg/bl.png",
+				"selectedIconPath": "static/tabimg/bl1.png",
+				"text": "健康博览"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"iconPath": "static/tabimg/my.png",
+				"selectedIconPath": "static/tabimg/my1.png",
+				"text": "个人中心"
+			}
+		]
+	}
+}

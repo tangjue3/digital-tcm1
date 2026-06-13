@@ -1,0 +1,71 @@
+-- Consultation report tables
+
+CREATE TABLE IF NOT EXISTS `tcm_consult_report` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+  `report_no` varchar(32) NOT NULL COMMENT 'Report number',
+  `user_id` bigint(20) DEFAULT NULL COMMENT 'App user id',
+  `patient_name` varchar(64) NOT NULL COMMENT 'Patient name',
+  `gender` varchar(20) NOT NULL COMMENT 'Gender',
+  `age` int(11) NOT NULL COMMENT 'Age',
+  `visit_type` varchar(20) NOT NULL COMMENT 'Visit type',
+  `basic_disease` varchar(255) DEFAULT '' COMMENT 'Basic disease',
+  `allergy_history_type` varchar(20) DEFAULT '' COMMENT 'Allergy history type',
+  `allergy_history_detail` varchar(500) DEFAULT '' COMMENT 'Allergy history detail',
+  `past_history_type` varchar(20) DEFAULT '' COMMENT 'Past history type',
+  `past_history_detail` varchar(500) DEFAULT '' COMMENT 'Past history detail',
+  `current_medication_type` varchar(20) DEFAULT '' COMMENT 'Current medication type',
+  `current_medication_detail` varchar(500) DEFAULT '' COMMENT 'Current medication detail',
+  `chief_complaint` varchar(1000) DEFAULT '' COMMENT 'Chief complaint',
+  `duration` varchar(100) DEFAULT '' COMMENT 'Duration',
+  `severity_level` int(11) DEFAULT NULL COMMENT 'Severity level 1-10',
+  `sudden_worse` varchar(20) DEFAULT '' COMMENT 'Sudden worse flag',
+  `life_impact` varchar(1000) DEFAULT '' COMMENT 'Life impact list',
+  `highest_risk_level` varchar(20) DEFAULT 'normal' COMMENT 'Highest risk level',
+  `status` varchar(32) DEFAULT 'pending' COMMENT 'Report status',
+  `doctor_id` bigint(20) DEFAULT NULL COMMENT 'Doctor id',
+  `doctor_name` varchar(64) DEFAULT '' COMMENT 'Doctor name',
+  `doctor_advice` varchar(2000) DEFAULT '' COMMENT 'Doctor advice',
+  `doctor_summary` varchar(2000) DEFAULT '' COMMENT 'Doctor summary',
+  `suggested_department` varchar(128) DEFAULT '' COMMENT 'Suggested department',
+  `need_offline_visit` tinyint(1) DEFAULT 0 COMMENT 'Need offline visit',
+  `need_supplement` tinyint(1) DEFAULT 0 COMMENT 'Need supplement',
+  `remark` varchar(500) DEFAULT '' COMMENT 'Remark',
+  `create_by` varchar(64) DEFAULT '' COMMENT 'Created by',
+  `create_time` datetime DEFAULT NULL COMMENT 'Created time',
+  `update_by` varchar(64) DEFAULT '' COMMENT 'Updated by',
+  `update_time` datetime DEFAULT NULL COMMENT 'Updated time',
+  `del_flag` char(1) DEFAULT '0' COMMENT 'Delete flag',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_tcm_consult_report_no` (`report_no`),
+  KEY `idx_tcm_consult_report_user_id` (`user_id`),
+  KEY `idx_tcm_consult_report_status` (`status`),
+  KEY `idx_tcm_consult_report_risk` (`highest_risk_level`),
+  KEY `idx_tcm_consult_report_create_time` (`create_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Consultation report';
+
+CREATE TABLE IF NOT EXISTS `tcm_consult_report_disease` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+  `report_id` bigint(20) NOT NULL COMMENT 'Report id',
+  `disease_code` varchar(64) DEFAULT '' COMMENT 'Disease code',
+  `disease_name` varchar(128) DEFAULT '' COMMENT 'Disease name',
+  `disease_path` varchar(1000) DEFAULT '' COMMENT 'Disease path',
+  `risk_level` varchar(20) DEFAULT 'normal' COMMENT 'Risk level',
+  `risk_reason` varchar(1000) DEFAULT '' COMMENT 'Risk reason',
+  `sort_order` int(11) DEFAULT 0 COMMENT 'Sort order',
+  `create_time` datetime DEFAULT NULL COMMENT 'Created time',
+  PRIMARY KEY (`id`),
+  KEY `idx_tcm_consult_report_disease_report_id` (`report_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Consultation report disease';
+
+CREATE TABLE IF NOT EXISTS `tcm_consult_report_attachment` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+  `report_id` bigint(20) NOT NULL COMMENT 'Report id',
+  `file_type` varchar(64) DEFAULT '' COMMENT 'File type',
+  `file_name` varchar(255) DEFAULT '' COMMENT 'File name',
+  `file_url` varchar(500) DEFAULT '' COMMENT 'File url',
+  `file_size` bigint(20) DEFAULT NULL COMMENT 'File size',
+  `remark` varchar(500) DEFAULT '' COMMENT 'Remark',
+  `create_time` datetime DEFAULT NULL COMMENT 'Created time',
+  PRIMARY KEY (`id`),
+  KEY `idx_tcm_consult_report_attachment_report_id` (`report_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Consultation report attachment';

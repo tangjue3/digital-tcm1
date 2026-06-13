@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Main.js Test</title>
+</head>
+<body>
+    <div id="app" style="padding: 20px;">
+        <h1>main.js 加载测试</h1>
+        <p id="status">正在加载...</p>
+    </div>
+
+    <script type="module">
+        try {
+            document.getElementById('status').textContent = '正在导入 main.js...'
+
+            import('/src/main.js')
+                .then(module => {
+                    document.getElementById('status').textContent = 'main.js 导入成功！'
+                    console.log('main.js 模块:', module)
+                })
+                .catch(err => {
+                    document.getElementById('status').innerHTML = `
+                        <span style="color: red;">main.js 导入失败:</span>
+                        <pre style="color: red;">${err.message}</pre>
+                    `
+                    console.error('main.js 导入失败:', err)
+                })
+        } catch (error) {
+            document.getElementById('status').innerHTML = `
+                <span style="color: red;">发生错误:</span>
+                <pre style="color: red;">${error.message}</pre>
+            `
+            console.error('发生错误:', error)
+        }
+    </script>
+</body>
+</html>

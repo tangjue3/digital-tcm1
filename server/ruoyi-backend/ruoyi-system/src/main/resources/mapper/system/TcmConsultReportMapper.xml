@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TcmConsultReportMapper">
+
+    <resultMap type="TcmConsultReport" id="TcmConsultReportResult">
+        <id property="reportId" column="id" />
+        <result property="reportNo" column="report_no" />
+        <result property="userId" column="user_id" />
+        <result property="patientName" column="patient_name" />
+        <result property="gender" column="gender" />
+        <result property="age" column="age" />
+        <result property="visitType" column="visit_type" />
+        <result property="basicDisease" column="basic_disease" />
+        <result property="allergyHistoryType" column="allergy_history_type" />
+        <result property="allergyHistoryDetail" column="allergy_history_detail" />
+        <result property="pastHistoryType" column="past_history_type" />
+        <result property="pastHistoryDetail" column="past_history_detail" />
+        <result property="currentMedicationType" column="current_medication_type" />
+        <result property="currentMedicationDetail" column="current_medication_detail" />
+        <result property="chiefComplaint" column="chief_complaint" />
+        <result property="duration" column="duration" />
+        <result property="severityLevel" column="severity_level" />
+        <result property="suddenWorse" column="sudden_worse" />
+        <result property="lifeImpact" column="life_impact" />
+        <result property="highestRiskLevel" column="highest_risk_level" />
+        <result property="status" column="status" />
+        <result property="doctorId" column="doctor_id" />
+        <result property="doctorName" column="doctor_name" />
+        <result property="doctorAdvice" column="doctor_advice" />
+        <result property="doctorSummary" column="doctor_summary" />
+        <result property="suggestedDepartment" column="suggested_department" />
+        <result property="needOfflineVisit" column="need_offline_visit" />
+        <result property="needSupplement" column="need_supplement" />
+        <result property="remark" column="remark" />
+        <result property="createBy" column="create_by" />
+        <result property="createTime" column="create_time" />
+        <result property="updateBy" column="update_by" />
+        <result property="updateTime" column="update_time" />
+        <result property="delFlag" column="del_flag" />
+    </resultMap>
+
+    <sql id="selectTcmConsultReportVo">
+        select
+            id,
+            report_no,
+            user_id,
+            patient_name,
+            gender,
+            age,
+            visit_type,
+            basic_disease,
+            allergy_history_type,
+            allergy_history_detail,
+            past_history_type,
+            past_history_detail,
+            current_medication_type,
+            current_medication_detail,
+            chief_complaint,
+            duration,
+            severity_level,
+            sudden_worse,
+            life_impact,
+            highest_risk_level,
+            status,
+            doctor_id,
+            doctor_name,
+            doctor_advice,
+            doctor_summary,
+            suggested_department,
+            need_offline_visit,
+            need_supplement,
+            remark,
+            create_by,
+            create_time,
+            update_by,
+            update_time,
+            del_flag
+        from tcm_consult_report
+    </sql>
+
+    <select id="selectTcmConsultReportById" parameterType="Long" resultMap="TcmConsultReportResult">
+        <include refid="selectTcmConsultReportVo" />
+        where id = #{reportId} and del_flag = '0'
+    </select>
+
+    <select id="selectTcmConsultReportList" parameterType="TcmConsultReport" resultMap="TcmConsultReportResult">
+        <include refid="selectTcmConsultReportVo" />
+        <where>
+            del_flag = '0'
+            <if test="reportNo != null and reportNo != ''">and report_no like concat('%', #{reportNo}, '%')</if>
+            <if test="userId != null">and user_id = #{userId}</if>
+            <if test="patientName != null and patientName != ''">and patient_name like concat('%', #{patientName}, '%')</if>
+            <if test="gender != null and gender != ''">and gender = #{gender}</if>
+            <if test="visitType != null and visitType != ''">and visit_type = #{visitType}</if>
+            <if test="status != null and status != ''">and status = #{status}</if>
+            <if test="highestRiskLevel != null and highestRiskLevel != ''">and highest_risk_level = #{highestRiskLevel}</if>
+            <if test="params.startTime != null and params.startTime != ''">and create_time &gt;= #{params.startTime}</if>
+            <if test="params.endTime != null and params.endTime != ''">and create_time &lt;= #{params.endTime}</if>
+        </where>
+        order by create_time desc, id desc
+    </select>
+
+    <insert id="insertTcmConsultReport" parameterType="TcmConsultReport" useGeneratedKeys="true" keyProperty="reportId">
+        insert into tcm_consult_report (
+            report_no,
+            user_id,
+            patient_name,
+            gender,
+            age,
+            visit_type,
+            basic_disease,
+            allergy_history_type,
+            allergy_history_detail,
+            past_history_type,
+            past_history_detail,
+            current_medication_type,
+            current_medication_detail,
+            chief_complaint,
+            duration,
+            severity_level,
+            sudden_worse,
+            life_impact,
+            highest_risk_level,
+            status,
+            doctor_id,
+            doctor_name,
+            doctor_advice,
+            doctor_summary,
+            suggested_department,
+            need_offline_visit,
+            need_supplement,
+            remark,
+            create_by,
+            create_time,
+            update_by,
+            update_time,
+            del_flag
+        ) values (
+            #{reportNo},
+            #{userId},
+            #{patientName},
+            #{gender},
+            #{age},
+            #{visitType},
+            #{basicDisease},
+            #{allergyHistoryType},
+            #{allergyHistoryDetail},
+            #{pastHistoryType},
+            #{pastHistoryDetail},
+            #{currentMedicationType},
+            #{currentMedicationDetail},
+            #{chiefComplaint},
+            #{duration},
+            #{severityLevel},
+            #{suddenWorse},
+            #{lifeImpact},
+            #{highestRiskLevel},
+            #{status},
+            #{doctorId},
+            #{doctorName},
+            #{doctorAdvice},
+            #{doctorSummary},
+            #{suggestedDepartment},
+            #{needOfflineVisit},
+            #{needSupplement},
+            #{remark},
+            #{createBy},
+            #{createTime},
+            #{updateBy},
+            #{updateTime},
+            #{delFlag}
+        )
+    </insert>
+
+    <update id="updateTcmConsultReport" parameterType="TcmConsultReport">
+        update tcm_consult_report
+        <set>
+            <if test="patientName != null">patient_name = #{patientName},</if>
+            <if test="gender != null">gender = #{gender},</if>
+            <if test="age != null">age = #{age},</if>
+            <if test="visitType != null">visit_type = #{visitType},</if>
+            <if test="basicDisease != null">basic_disease = #{basicDisease},</if>
+            <if test="allergyHistoryType != null">allergy_history_type = #{allergyHistoryType},</if>
+            <if test="allergyHistoryDetail != null">allergy_history_detail = #{allergyHistoryDetail},</if>
+            <if test="pastHistoryType != null">past_history_type = #{pastHistoryType},</if>
+            <if test="pastHistoryDetail != null">past_history_detail = #{pastHistoryDetail},</if>
+            <if test="currentMedicationType != null">current_medication_type = #{currentMedicationType},</if>
+            <if test="currentMedicationDetail != null">current_medication_detail = #{currentMedicationDetail},</if>
+            <if test="chiefComplaint != null">chief_complaint = #{chiefComplaint},</if>
+            <if test="duration != null">duration = #{duration},</if>
+            <if test="severityLevel != null">severity_level = #{severityLevel},</if>
+            <if test="suddenWorse != null">sudden_worse = #{suddenWorse},</if>
+            <if test="lifeImpact != null">life_impact = #{lifeImpact},</if>
+            <if test="highestRiskLevel != null">highest_risk_level = #{highestRiskLevel},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="doctorId != null">doctor_id = #{doctorId},</if>
+            <if test="doctorName != null">doctor_name = #{doctorName},</if>
+            <if test="doctorAdvice != null">doctor_advice = #{doctorAdvice},</if>
+            <if test="doctorSummary != null">doctor_summary = #{doctorSummary},</if>
+            <if test="suggestedDepartment != null">suggested_department = #{suggestedDepartment},</if>
+            <if test="needOfflineVisit != null">need_offline_visit = #{needOfflineVisit},</if>
+            <if test="needSupplement != null">need_supplement = #{needSupplement},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            update_time = #{updateTime}
+        </set>
+        where id = #{reportId} and del_flag = '0'
+    </update>
+
+    <select id="countReportsByStatus" resultType="long">
+        select count(1)
+        from tcm_consult_report
+        where del_flag = '0' and status = #{status}
+    </select>
+
+    <select id="countTodayReports" resultType="long">
+        select count(1)
+        from tcm_consult_report
+        where del_flag = '0'
+          and date(create_time) = curdate()
+    </select>
+
+    <select id="countHighRiskUnfinishedReports" resultType="long">
+        select count(1)
+        from tcm_consult_report
+        where del_flag = '0'
+          and highest_risk_level in ('high', 'critical')
+          and status in ('pending', 'processing', 'supplement_required')
+    </select>
+
+    <select id="countCriticalUnfinishedReports" resultType="long">
+        select count(1)
+        from tcm_consult_report
+        where del_flag = '0'
+          and highest_risk_level = 'critical'
+          and status in ('pending', 'processing', 'supplement_required')
+    </select>
+
+    <select id="selectUrgentConsultReportList" resultMap="TcmConsultReportResult">
+        <include refid="selectTcmConsultReportVo" />
+        where del_flag = '0'
+          and highest_risk_level in ('high', 'critical')
+          and status in ('pending', 'processing', 'supplement_required')
+        order by case highest_risk_level when 'critical' then 1 when 'high' then 2 else 3 end, create_time desc, id desc
+        limit #{limit}
+    </select>
+
+    <select id="selectRecentReportTrend" resultType="java.util.LinkedHashMap">
+        select
+            date_format(create_time, '%Y-%m-%d') as statDate,
+            count(1) as reportCount,
+            sum(case when highest_risk_level in ('high', 'critical') then 1 else 0 end) as highRiskCount
+        from tcm_consult_report
+        where del_flag = '0'
+          and create_time &gt;= #{startTime}
+        group by date_format(create_time, '%Y-%m-%d')
+        order by statDate asc
+    </select>
+
+    <select id="selectRecentDiseaseDistribution" resultType="java.util.LinkedHashMap">
+        select
+            d.disease_name as diseaseName,
+            count(1) as diseaseCount
+        from tcm_consult_report_disease d
+        inner join tcm_consult_report r on r.id = d.report_id
+        where r.del_flag = '0'
+          and r.create_time &gt;= #{startTime}
+          and d.disease_name is not null
+          and d.disease_name != ''
+        group by d.disease_name
+        order by diseaseCount desc, d.disease_name asc
+        limit #{limit}
+    </select>
+</mapper>

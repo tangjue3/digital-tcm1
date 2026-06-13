@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CommondiseasesMapper">
+    
+    <resultMap type="Commondiseases" id="CommondiseasesResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="introduction"    column="introduction"    />
+        <result property="method"    column="method"    />
+        <result property="preventive"    column="preventive"    />
+        <result property="onsetseasons"    column="OnsetSeasons"    />
+    </resultMap>
+
+    <sql id="selectCommondiseasesVo">
+        select id, name, introduction, method, preventive, OnsetSeasons from commondiseases
+    </sql>
+
+    <select id="selectCommondiseasesList" parameterType="Commondiseases" resultMap="CommondiseasesResult">
+        <include refid="selectCommondiseasesVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="introduction != null  and introduction != ''"> and introduction = #{introduction}</if>
+            <if test="method != null  and method != ''"> and method = #{method}</if>
+            <if test="preventive != null  and preventive != ''"> and preventive = #{preventive}</if>
+            <if test="onsetseasons != null  and onsetseasons != ''"> and OnsetSeasons = #{onsetseasons}</if>
+        </where>
+    </select>
+    
+    <select id="selectCommondiseasesById" parameterType="Long" resultMap="CommondiseasesResult">
+        <include refid="selectCommondiseasesVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertCommondiseases" parameterType="Commondiseases" useGeneratedKeys="true" keyProperty="id">
+        insert into commondiseases
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="introduction != null">introduction,</if>
+            <if test="method != null">method,</if>
+            <if test="preventive != null">preventive,</if>
+            <if test="onsetseasons != null">OnsetSeasons,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="introduction != null">#{introduction},</if>
+            <if test="method != null">#{method},</if>
+            <if test="preventive != null">#{preventive},</if>
+            <if test="onsetseasons != null">#{onsetseasons},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCommondiseases" parameterType="Commondiseases">
+        update commondiseases
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="introduction != null">introduction = #{introduction},</if>
+            <if test="method != null">method = #{method},</if>
+            <if test="preventive != null">preventive = #{preventive},</if>
+            <if test="onsetseasons != null">OnsetSeasons = #{onsetseasons},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCommondiseasesById" parameterType="Long">
+        delete from commondiseases where id = #{id}
+    </delete>
+
+    <delete id="deleteCommondiseasesByIds" parameterType="String">
+        delete from commondiseases where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TcmCaseRecordsMapper">
+    
+    <resultMap type="TcmCaseRecords" id="TcmCaseRecordsResult">
+        <result property="id"    column="id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="caseNo"    column="case_no"    />
+        <result property="questionNo"    column="question_no"    />
+        <result property="score"    column="score"    />
+        <result property="time"    column="time"    />
+        <result property="conclusion"    column="conclusion"    />
+        <result property="treatmentMethods"    column="treatment_methods"    />
+        <result property="remark"    column="remark"    />
+        <result property="extend1"    column="extend1"    />
+        <result property="extend2"    column="extend2"    />
+    </resultMap>
+    <resultMap type="TcmCaseRecordsVo" id="TcmCaseRecordsResultVo">
+        <result property="userId"    column="user_id"    />
+        <result property="caseNo"    column="case_no"    />
+        <result property="caseName"    column="case_name" />
+        <result property="score"    column="score"    />
+        <result property="time"    column="time"    />
+    </resultMap>
+    <sql id="selectTcmCaseRecordsVo">
+        select id, user_id, case_no, question_no, score, time, conclusion, treatment_methods, remark, extend1, extend2 from tcm_case_records
+    </sql>
+
+    <select id="selectTcmCaseRecordsList" parameterType="TcmCaseRecords" resultMap="TcmCaseRecordsResult">
+        <include refid="selectTcmCaseRecordsVo"/>
+
+        <where>  
+            <if test="userId != null  and userId != ''"> and user_id like concat('%', #{userId}, '%')</if>
+            <if test="caseNo != null  and caseNo != ''"> and case_no = #{caseNo}</if>
+            <if test="questionNo != null  and questionNo != ''"> and question_no like concat('%', #{questionNo}, '%')</if>
+            <if test="score != null  and score != ''"> and score = #{score}</if>
+            <if test="time != null "> and time = #{time}</if>
+            <if test="conclusion != null  and conclusion != ''"> and conclusion = #{conclusion}</if>
+            <if test="treatmentMethods != null  and treatmentMethods != ''"> and treatment_methods = #{treatmentMethods}</if>
+            <if test="extend1 != null  and extend1 != ''"> and extend1 = #{extend1}</if>
+            <if test="extend2 != null  and extend2 != ''"> and extend2 = #{extend2}</if>
+        </where>
+        ORDER BY time DESC
+    </select>
+    
+    <select id="selectTcmCaseRecordsById" parameterType="Long" resultMap="TcmCaseRecordsResult">
+        <include refid="selectTcmCaseRecordsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTcmCaseRecords" parameterType="TcmCaseRecords" useGeneratedKeys="true" keyProperty="id">
+        insert into tcm_case_records
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="caseNo != null">case_no,</if>
+            <if test="questionNo != null">question_no,</if>
+            <if test="score != null">score,</if>
+            <if test="time != null">time,</if>
+            <if test="conclusion != null">conclusion,</if>
+            <if test="treatmentMethods != null">treatment_methods,</if>
+            <if test="remark != null">remark,</if>
+            <if test="extend1 != null">extend1,</if>
+            <if test="extend2 != null">extend2,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="caseNo != null">#{caseNo},</if>
+            <if test="questionNo != null">#{questionNo},</if>
+            <if test="score != null">#{score},</if>
+            <if test="time != null">#{time},</if>
+            <if test="conclusion != null">#{conclusion},</if>
+            <if test="treatmentMethods != null">#{treatmentMethods},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="extend1 != null">#{extend1},</if>
+            <if test="extend2 != null">#{extend2},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTcmCaseRecords" parameterType="TcmCaseRecords">
+        update tcm_case_records
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="caseNo != null">case_no = #{caseNo},</if>
+            <if test="questionNo != null">question_no = #{questionNo},</if>
+            <if test="score != null">score = #{score},</if>
+            <if test="time != null">time = #{time},</if>
+            <if test="conclusion != null">conclusion = #{conclusion},</if>
+            <if test="treatmentMethods != null">treatment_methods = #{treatmentMethods},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="extend1 != null">extend1 = #{extend1},</if>
+            <if test="extend2 != null">extend2 = #{extend2},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTcmCaseRecordsById" parameterType="Long">
+        delete from tcm_case_records where id = #{id}
+    </delete>
+
+    <delete id="deleteTcmCaseRecordsByIds" parameterType="String">
+        delete from tcm_case_records where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <update id="updateTcmCaseRecordsByResult" parameterType="TcmCaseRecords">
+        update tcm_case_records
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="score != null">score = #{score},</if>
+            <if test="conclusion != null">conclusion = #{conclusion},</if>
+            <if test="treatmentMethods != null">treatment_methods = #{treatmentMethods},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="extend1 != null">extend1 = #{extend1},</if>
+            <if test="extend2 != null">extend2 = #{extend2},</if>
+        </trim>
+        where question_no = #{questionNo}
+    </update>
+    <select id="selectTcmCaseRecordsByCaseNo" parameterType="String" resultMap="TcmCaseRecordsResult">
+        <include refid="selectTcmCaseRecordsVo"/>
+        where case_no = #{caseNo}
+        ORDER BY CAST(score AS DECIMAL(10, 2)) DESC;
+    </select>
+    <select id="getAllCharts"  resultMap="TcmCaseRecordsResultVo">
+        SELECT
+        outer_table.case_no,
+        tcm_case.case_name,
+        CAST(outer_table.score AS DECIMAL(10, 2))as score,
+        outer_table.time,
+        outer_table.user_id
+        FROM
+        tcm_case_records outer_table
+        LEFT JOIN tcm_case on  outer_table.case_no= tcm_case.case_no
+        WHERE
+        (
+        SELECT COUNT(*)
+        FROM tcm_case_records inner_table
+        WHERE inner_table.case_no = outer_table.case_no AND inner_table.score > outer_table.score
+        ) &lt;3;
+    </select>
+</mapper>

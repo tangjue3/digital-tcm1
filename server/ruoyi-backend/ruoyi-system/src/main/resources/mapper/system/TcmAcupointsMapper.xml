@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TcmAcupointsMapper">
+    
+    <resultMap type="TcmAcupoints" id="TcmAcupointsResult">
+        <result property="id"    column="id"    />
+        <result property="acupointName"    column="acupoint_name"    />
+        <result property="meridianName"    column="meridian_name"    />
+        <result property="locationDescription"    column="location_description"    />
+        <result property="functionDescription"    column="function_description"    />
+        <result property="commonUsage"    column="common_usage"    />
+        <result property="pictureUrl"    column="picture_url"    />
+        <result property="acupunctureDepth"    column="acupuncture_depth"    />
+        <result property="moxibustionTime"    column="moxibustion_time"    />
+    </resultMap>
+
+    <sql id="selectTcmAcupointsVo">
+        select id, acupoint_name, meridian_name, location_description, function_description, common_usage, picture_url, acupuncture_depth, moxibustion_time from tcm_acupoints
+    </sql>
+
+    <select id="selectTcmAcupointsList" parameterType="TcmAcupoints" resultMap="TcmAcupointsResult">
+        <include refid="selectTcmAcupointsVo"/>
+        <where>  
+            <if test="acupointName != null  and acupointName != ''"> and acupoint_name like concat('%', #{acupointName}, '%')</if>
+            <if test="meridianName != null  and meridianName != ''"> and meridian_name like concat('%', #{meridianName}, '%')</if>
+            <if test="locationDescription != null  and locationDescription != ''"> and location_description = #{locationDescription}</if>
+            <if test="functionDescription != null  and functionDescription != ''"> and function_description = #{functionDescription}</if>
+            <if test="commonUsage != null  and commonUsage != ''"> and common_usage = #{commonUsage}</if>
+            <if test="pictureUrl != null  and pictureUrl != ''"> and picture_url = #{pictureUrl}</if>
+            <if test="acupunctureDepth != null "> and acupuncture_depth = #{acupunctureDepth}</if>
+            <if test="moxibustionTime != null "> and moxibustion_time = #{moxibustionTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectTcmAcupointsById" parameterType="Long" resultMap="TcmAcupointsResult">
+        <include refid="selectTcmAcupointsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTcmAcupoints" parameterType="TcmAcupoints" useGeneratedKeys="true" keyProperty="id">
+        insert into tcm_acupoints
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="acupointName != null and acupointName != ''">acupoint_name,</if>
+            <if test="meridianName != null">meridian_name,</if>
+            <if test="locationDescription != null">location_description,</if>
+            <if test="functionDescription != null">function_description,</if>
+            <if test="commonUsage != null">common_usage,</if>
+            <if test="pictureUrl != null">picture_url,</if>
+            <if test="acupunctureDepth != null">acupuncture_depth,</if>
+            <if test="moxibustionTime != null">moxibustion_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="acupointName != null and acupointName != ''">#{acupointName},</if>
+            <if test="meridianName != null">#{meridianName},</if>
+            <if test="locationDescription != null">#{locationDescription},</if>
+            <if test="functionDescription != null">#{functionDescription},</if>
+            <if test="commonUsage != null">#{commonUsage},</if>
+            <if test="pictureUrl != null">#{pictureUrl},</if>
+            <if test="acupunctureDepth != null">#{acupunctureDepth},</if>
+            <if test="moxibustionTime != null">#{moxibustionTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTcmAcupoints" parameterType="TcmAcupoints">
+        update tcm_acupoints
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="acupointName != null and acupointName != ''">acupoint_name = #{acupointName},</if>
+            <if test="meridianName != null">meridian_name = #{meridianName},</if>
+            <if test="locationDescription != null">location_description = #{locationDescription},</if>
+            <if test="functionDescription != null">function_description = #{functionDescription},</if>
+            <if test="commonUsage != null">common_usage = #{commonUsage},</if>
+            <if test="pictureUrl != null">picture_url = #{pictureUrl},</if>
+            <if test="acupunctureDepth != null">acupuncture_depth = #{acupunctureDepth},</if>
+            <if test="moxibustionTime != null">moxibustion_time = #{moxibustionTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTcmAcupointsById" parameterType="Long">
+        delete from tcm_acupoints where id = #{id}
+    </delete>
+
+    <delete id="deleteTcmAcupointsByIds" parameterType="String">
+        delete from tcm_acupoints where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

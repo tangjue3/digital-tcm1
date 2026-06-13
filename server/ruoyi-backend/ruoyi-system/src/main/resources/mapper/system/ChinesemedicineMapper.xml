@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ChinesemedicineMapper">
+    
+    <resultMap type="Chinesemedicine" id="ChinesemedicineResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="imageurl"    column="imageURL"    />
+        <result property="otherName"    column="other_name"    />
+        <result property="source"    column="source"    />
+        <result property="xingtai"    column="xingtai"    />
+        <result property="chandi"    column="chandi"    />
+        <result property="xingzhuang"    column="xingzhuang"    />
+        <result property="xingweiguijing"    column="xingweiguijing"    />
+        <result property="gongxiao"    column="gongxiao"    />
+        <result property="linchuangzuoyong"    column="linchuangzuoyong"    />
+        <result property="yaoliyanjiu"    column="yaoliyanjiu"    />
+        <result property="huaxuezucheng"    column="huaxuezucheng"    />
+        <result property="jinji"    column="jinji"    />
+        <result property="yaowupeifang"    column="yaowupeifang"    />
+    </resultMap>
+
+    <sql id="selectChinesemedicineVo">
+        select id, name, imageURL, other_name, source, xingtai, chandi, xingzhuang, xingweiguijing, gongxiao, linchuangzuoyong, yaoliyanjiu, huaxuezucheng, jinji, yaowupeifang from chinesemedicine
+    </sql>
+
+    <select id="selectChinesemedicineList" parameterType="Chinesemedicine" resultMap="ChinesemedicineResult">
+        <include refid="selectChinesemedicineVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="imageurl != null  and imageurl != ''"> and imageURL = #{imageurl}</if>
+            <if test="otherName != null  and otherName != ''"> and other_name like concat('%', #{otherName}, '%')</if>
+            <if test="source != null  and source != ''"> and source = #{source}</if>
+            <if test="xingtai != null  and xingtai != ''"> and xingtai = #{xingtai}</if>
+            <if test="chandi != null  and chandi != ''"> and chandi = #{chandi}</if>
+            <if test="xingzhuang != null  and xingzhuang != ''"> and xingzhuang = #{xingzhuang}</if>
+            <if test="xingweiguijing != null  and xingweiguijing != ''"> and xingweiguijing = #{xingweiguijing}</if>
+            <if test="gongxiao != null  and gongxiao != ''"> and gongxiao = #{gongxiao}</if>
+            <if test="linchuangzuoyong != null  and linchuangzuoyong != ''"> and linchuangzuoyong = #{linchuangzuoyong}</if>
+            <if test="yaoliyanjiu != null  and yaoliyanjiu != ''"> and yaoliyanjiu = #{yaoliyanjiu}</if>
+            <if test="huaxuezucheng != null  and huaxuezucheng != ''"> and huaxuezucheng = #{huaxuezucheng}</if>
+            <if test="jinji != null  and jinji != ''"> and jinji = #{jinji}</if>
+            <if test="yaowupeifang != null  and yaowupeifang != ''"> and yaowupeifang = #{yaowupeifang}</if>
+        </where>
+    </select>
+    
+    <select id="selectChinesemedicineById" parameterType="Long" resultMap="ChinesemedicineResult">
+        <include refid="selectChinesemedicineVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertChinesemedicine" parameterType="Chinesemedicine" useGeneratedKeys="true" keyProperty="id">
+        insert into chinesemedicine
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="imageurl != null">imageURL,</if>
+            <if test="otherName != null">other_name,</if>
+            <if test="source != null">source,</if>
+            <if test="xingtai != null">xingtai,</if>
+            <if test="chandi != null">chandi,</if>
+            <if test="xingzhuang != null">xingzhuang,</if>
+            <if test="xingweiguijing != null">xingweiguijing,</if>
+            <if test="gongxiao != null">gongxiao,</if>
+            <if test="linchuangzuoyong != null">linchuangzuoyong,</if>
+            <if test="yaoliyanjiu != null">yaoliyanjiu,</if>
+            <if test="huaxuezucheng != null">huaxuezucheng,</if>
+            <if test="jinji != null">jinji,</if>
+            <if test="yaowupeifang != null">yaowupeifang,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="imageurl != null">#{imageurl},</if>
+            <if test="otherName != null">#{otherName},</if>
+            <if test="source != null">#{source},</if>
+            <if test="xingtai != null">#{xingtai},</if>
+            <if test="chandi != null">#{chandi},</if>
+            <if test="xingzhuang != null">#{xingzhuang},</if>
+            <if test="xingweiguijing != null">#{xingweiguijing},</if>
+            <if test="gongxiao != null">#{gongxiao},</if>
+            <if test="linchuangzuoyong != null">#{linchuangzuoyong},</if>
+            <if test="yaoliyanjiu != null">#{yaoliyanjiu},</if>
+            <if test="huaxuezucheng != null">#{huaxuezucheng},</if>
+            <if test="jinji != null">#{jinji},</if>
+            <if test="yaowupeifang != null">#{yaowupeifang},</if>
+         </trim>
+    </insert>
+
+    <update id="updateChinesemedicine" parameterType="Chinesemedicine">
+        update chinesemedicine
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="imageurl != null">imageURL = #{imageurl},</if>
+            <if test="otherName != null">other_name = #{otherName},</if>
+            <if test="source != null">source = #{source},</if>
+            <if test="xingtai != null">xingtai = #{xingtai},</if>
+            <if test="chandi != null">chandi = #{chandi},</if>
+            <if test="xingzhuang != null">xingzhuang = #{xingzhuang},</if>
+            <if test="xingweiguijing != null">xingweiguijing = #{xingweiguijing},</if>
+            <if test="gongxiao != null">gongxiao = #{gongxiao},</if>
+            <if test="linchuangzuoyong != null">linchuangzuoyong = #{linchuangzuoyong},</if>
+            <if test="yaoliyanjiu != null">yaoliyanjiu = #{yaoliyanjiu},</if>
+            <if test="huaxuezucheng != null">huaxuezucheng = #{huaxuezucheng},</if>
+            <if test="jinji != null">jinji = #{jinji},</if>
+            <if test="yaowupeifang != null">yaowupeifang = #{yaowupeifang},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteChinesemedicineById" parameterType="Long">
+        delete from chinesemedicine where id = #{id}
+    </delete>
+
+    <delete id="deleteChinesemedicineByIds" parameterType="String">
+        delete from chinesemedicine where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

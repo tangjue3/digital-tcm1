@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TcmShopMapper">
+    
+    <resultMap type="TcmShop" id="TcmShopResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="address"    column="address"    />
+        <result property="coordinate"    column="coordinate"    />
+        <result property="introduce"    column="introduce"    />
+        <result property="coverImage"    column="cover_image"    />
+        <result property="city"    column="city"    />
+    </resultMap>
+
+    <sql id="selectTcmShopVo">
+        select id, name, address, coordinate, introduce, cover_image, city from tcm_shop
+    </sql>
+
+    <select id="selectTcmShopList" parameterType="TcmShop" resultMap="TcmShopResult">
+        <include refid="selectTcmShopVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="coordinate != null  and coordinate != ''"> and coordinate = #{coordinate}</if>
+            <if test="introduce != null  and introduce != ''"> and introduce = #{introduce}</if>
+            <if test="coverImage != null  and coverImage != ''"> and cover_image = #{coverImage}</if>
+            <if test="city != null  and city != ''"> and city like concat('%', #{city}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectTcmShopById" parameterType="Long" resultMap="TcmShopResult">
+        <include refid="selectTcmShopVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTcmShop" parameterType="TcmShop" useGeneratedKeys="true" keyProperty="id">
+        insert into tcm_shop
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="address != null">address,</if>
+            <if test="coordinate != null">coordinate,</if>
+            <if test="introduce != null">introduce,</if>
+            <if test="coverImage != null">cover_image,</if>
+            <if test="city != null">city,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="address != null">#{address},</if>
+            <if test="coordinate != null">#{coordinate},</if>
+            <if test="introduce != null">#{introduce},</if>
+            <if test="coverImage != null">#{coverImage},</if>
+            <if test="city != null">#{city},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTcmShop" parameterType="TcmShop">
+        update tcm_shop
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="coordinate != null">coordinate = #{coordinate},</if>
+            <if test="introduce != null">introduce = #{introduce},</if>
+            <if test="coverImage != null">cover_image = #{coverImage},</if>
+            <if test="city != null">city = #{city},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTcmShopById" parameterType="Long">
+        delete from tcm_shop where id = #{id}
+    </delete>
+
+    <delete id="deleteTcmShopByIds" parameterType="String">
+        delete from tcm_shop where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

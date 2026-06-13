@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Test</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script type="module">
+        import {
+            createApp,
+            ref,
+            onMounted
+        } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+
+        try {
+            const app = createApp({
+                setup() {
+                    const message = ref('Vue 3 测试成功！')
+                    const count = ref(0)
+
+                    const increment = () => {
+                        count.value++
+                    }
+
+                    onMounted(() => {
+                        document.getElementById('app').innerHTML = `
+                            <div style="padding: 20px; font-family: Arial, sans-serif; text-align: center;">
+                                <h1 style="color: #1f5fca;">${message.value}</h1>
+                                <p>计数: ${count.value}</p>
+                                <button onclick="this.__vueParent__.increment()" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
+                                    点我计数
+                                </button>
+                            </div>
+                        `
+                        document.getElementById('app').__vueParent__ = app
+                    })
+
+                    return { message, count, increment }
+                }
+            })
+
+            app.mount('#app')
+            console.log('Vue 3 应用挂载成功')
+        } catch (error) {
+            console.error('Vue 初始化失败:', error)
+            document.getElementById('app').innerHTML = `
+                <div style="padding: 20px; color: red;">
+                    <h2>Vue 初始化失败</h2>
+                    <pre>${error.message}</pre>
+                </div>
+            `
+        }
+    </script>
+</body>
+</html>

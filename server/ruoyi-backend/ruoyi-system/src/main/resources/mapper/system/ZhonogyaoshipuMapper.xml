@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.ZhonogyaoshipuMapper">
+    
+    <resultMap type="Zhonogyaoshipu" id="ZhonogyaoshipuResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="imageurl"    column="imageURL"    />
+        <result property="yaocai"    column="yaocai"    />
+        <result property="shicai"    column="shicai"    />
+        <result property="zuofa"    column="zuofa"    />
+        <result property="gongxiao"    column="gongxiao"    />
+        <result property="shiyongfangfa"    column="shiyongfangfa"    />
+        <result property="jinji"    column="jinji"    />
+    </resultMap>
+
+    <sql id="selectZhonogyaoshipuVo">
+        select id, name, imageURL, yaocai, shicai, zuofa, gongxiao, shiyongfangfa, jinji from zhonogyaoshipu
+    </sql>
+
+    <select id="selectZhonogyaoshipuList" parameterType="Zhonogyaoshipu" resultMap="ZhonogyaoshipuResult">
+        <include refid="selectZhonogyaoshipuVo"/>
+        <where>
+            <if test="id != null  and id != ''"> and id = #{id}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="imageurl != null  and imageurl != ''"> and imageURL = #{imageurl}</if>
+            <if test="yaocai != null  and yaocai != ''"> and yaocai = #{yaocai}</if>
+            <if test="shicai != null  and shicai != ''"> and shicai = #{shicai}</if>
+            <if test="zuofa != null  and zuofa != ''"> and zuofa = #{zuofa}</if>
+            <if test="gongxiao != null  and gongxiao != ''"> and gongxiao = #{gongxiao}</if>
+            <if test="shiyongfangfa != null  and shiyongfangfa != ''"> and shiyongfangfa = #{shiyongfangfa}</if>
+            <if test="jinji != null  and jinji != ''"> and jinji = #{jinji}</if>
+        </where>
+    </select>
+    
+    <select id="selectZhonogyaoshipuById" parameterType="Long" resultMap="ZhonogyaoshipuResult">
+        <include refid="selectZhonogyaoshipuVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertZhonogyaoshipu" parameterType="Zhonogyaoshipu" useGeneratedKeys="true" keyProperty="id">
+        insert into zhonogyaoshipu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="imageurl != null">imageURL,</if>
+            <if test="yaocai != null">yaocai,</if>
+            <if test="shicai != null">shicai,</if>
+            <if test="zuofa != null">zuofa,</if>
+            <if test="gongxiao != null">gongxiao,</if>
+            <if test="shiyongfangfa != null">shiyongfangfa,</if>
+            <if test="jinji != null">jinji,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="imageurl != null">#{imageurl},</if>
+            <if test="yaocai != null">#{yaocai},</if>
+            <if test="shicai != null">#{shicai},</if>
+            <if test="zuofa != null">#{zuofa},</if>
+            <if test="gongxiao != null">#{gongxiao},</if>
+            <if test="shiyongfangfa != null">#{shiyongfangfa},</if>
+            <if test="jinji != null">#{jinji},</if>
+         </trim>
+    </insert>
+
+    <update id="updateZhonogyaoshipu" parameterType="Zhonogyaoshipu">
+        update zhonogyaoshipu
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="imageurl != null">imageURL = #{imageurl},</if>
+            <if test="yaocai != null">yaocai = #{yaocai},</if>
+            <if test="shicai != null">shicai = #{shicai},</if>
+            <if test="zuofa != null">zuofa = #{zuofa},</if>
+            <if test="gongxiao != null">gongxiao = #{gongxiao},</if>
+            <if test="shiyongfangfa != null">shiyongfangfa = #{shiyongfangfa},</if>
+            <if test="jinji != null">jinji = #{jinji},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteZhonogyaoshipuById" parameterType="Long">
+        delete from zhonogyaoshipu where id = #{id}
+    </delete>
+
+    <delete id="deleteZhonogyaoshipuByIds" parameterType="String">
+        delete from zhonogyaoshipu where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

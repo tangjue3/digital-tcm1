@@ -1,0 +1,9 @@
+{
+  "patientUserId" : 1003,
+  "patientName" : null,
+  "patientPhone" : null,
+  "doctorUserId" : 1,
+  "doctorName" : "若依",
+  "updatedTime" : null,
+  "messages" : [ ]
+}

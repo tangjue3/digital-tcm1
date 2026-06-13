@@ -1,0 +1,58 @@
+{
+  "patientUserId" : 1001,
+  "patientName" : "18758007045",
+  "patientPhone" : "",
+  "doctorUserId" : 1,
+  "doctorName" : "若依",
+  "updatedTime" : "2026-04-27 10:33:56",
+  "messages" : [ {
+    "messageId" : "961442a089844c3cb65c0e66d9c2cfd2",
+    "senderRole" : "doctor",
+    "senderUserId" : 1,
+    "senderName" : "若依",
+    "content" : "111",
+    "sendTime" : "2026-04-26 11:55:35"
+  }, {
+    "messageId" : "e7a06585f0084cfdbca8be3c9c9cd079",
+    "senderRole" : "doctor",
+    "senderUserId" : 1,
+    "senderName" : "若依",
+    "content" : "你好",
+    "sendTime" : "2026-04-26 11:56:51"
+  }, {
+    "messageId" : "8f238b13da844a18a04ee116b2ad81b2",
+    "senderRole" : "patient",
+    "senderUserId" : 1001,
+    "senderName" : "18758007045",
+    "content" : "111",
+    "sendTime" : "2026-04-26 11:57:27"
+  }, {
+    "messageId" : "087d72c800ac4dc9b1475384e5f936f9",
+    "senderRole" : "doctor",
+    "senderUserId" : 1,
+    "senderName" : "若依",
+    "content" : "保持心情舒畅，避免过度劳累。",
+    "sendTime" : "2026-04-26 15:24:27"
+  }, {
+    "messageId" : "56ff4a67bd144855bcf9b8387ff30669",
+    "senderRole" : "patient",
+    "senderUserId" : 1001,
+    "senderName" : "18758007045",
+    "content" : "何意味",
+    "sendTime" : "2026-04-26 15:26:28"
+  }, {
+    "messageId" : "6287f402d29d4400b193881248c28e61",
+    "senderRole" : "patient",
+    "senderUserId" : 1001,
+    "senderName" : "18758007045",
+    "content" : "好的医生",
+    "sendTime" : "2026-04-27 10:12:45"
+  }, {
+    "messageId" : "3e60170ad19142bb8a24c82d3f019109",
+    "senderRole" : "patient",
+    "senderUserId" : 1001,
+    "senderName" : "18758007045",
+    "content" : "那我缺的营养这一块",
+    "sendTime" : "2026-04-27 10:33:56"
+  } ]
+}

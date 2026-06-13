@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TcmCaseMapper">
+    
+    <resultMap type="TcmCase" id="TcmCaseResult">
+        <result property="id"    column="id"    />
+        <result property="caseName"    column="case_name"    />
+        <result property="caseNo"    column="case_no"    />
+        <result property="caseRemark"    column="case_remark"    />
+        <result property="picture"    column="picture"    />
+        <result property="results"    column="results"    />
+        <result property="treatmentMethods"    column="treatment_methods"    />
+        <result property="remark"    column="remark"    />
+        <result property="extend1"    column="extend1"    />
+        <result property="extend2"    column="extend2"    />
+    </resultMap>
+
+    <sql id="selectTcmCaseVo">
+        select id, case_name, case_no, case_remark, picture, results, treatment_methods, remark, extend1, extend2 from tcm_case
+    </sql>
+
+    <select id="selectTcmCaseList" parameterType="TcmCase" resultMap="TcmCaseResult">
+        <include refid="selectTcmCaseVo"/>
+        <where>  
+            <if test="caseName != null  and caseName != ''"> and case_name like concat('%', #{caseName}, '%')</if>
+            <if test="caseNo != null  and caseNo != ''"> and case_no = #{caseNo}</if>
+            <if test="caseRemark != null  and caseRemark != ''"> and case_remark = #{caseRemark}</if>
+            <if test="picture != null  and picture != ''"> and picture = #{picture}</if>
+            <if test="results != null  and results != ''"> and results = #{results}</if>
+            <if test="treatmentMethods != null  and treatmentMethods != ''"> and treatment_methods = #{treatmentMethods}</if>
+            <if test="extend1 != null  and extend1 != ''"> and extend1 = #{extend1}</if>
+            <if test="extend2 != null  and extend2 != ''"> and extend2 = #{extend2}</if>
+        </where>
+    </select>
+    
+    <select id="selectTcmCaseById" parameterType="Long" resultMap="TcmCaseResult">
+        <include refid="selectTcmCaseVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTcmCase" parameterType="TcmCase" useGeneratedKeys="true" keyProperty="id">
+        insert into tcm_case
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="caseName != null">case_name,</if>
+            <if test="caseNo != null and caseNo != ''">case_no,</if>
+            <if test="caseRemark != null">case_remark,</if>
+            <if test="picture != null">picture,</if>
+            <if test="results != null">results,</if>
+            <if test="treatmentMethods != null">treatment_methods,</if>
+            <if test="remark != null">remark,</if>
+            <if test="extend1 != null">extend1,</if>
+            <if test="extend2 != null">extend2,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="caseName != null">#{caseName},</if>
+            <if test="caseNo != null and caseNo != ''">#{caseNo},</if>
+            <if test="caseRemark != null">#{caseRemark},</if>
+            <if test="picture != null">#{picture},</if>
+            <if test="results != null">#{results},</if>
+            <if test="treatmentMethods != null">#{treatmentMethods},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="extend1 != null">#{extend1},</if>
+            <if test="extend2 != null">#{extend2},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTcmCase" parameterType="TcmCase">
+        update tcm_case
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="caseName != null">case_name = #{caseName},</if>
+            <if test="caseNo != null and caseNo != ''">case_no = #{caseNo},</if>
+            <if test="caseRemark != null">case_remark = #{caseRemark},</if>
+            <if test="picture != null">picture = #{picture},</if>
+            <if test="results != null">results = #{results},</if>
+            <if test="treatmentMethods != null">treatment_methods = #{treatmentMethods},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="extend1 != null">extend1 = #{extend1},</if>
+            <if test="extend2 != null">extend2 = #{extend2},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTcmCaseById" parameterType="Long">
+        delete from tcm_case where id = #{id}
+    </delete>
+
+    <delete id="deleteTcmCaseByIds" parameterType="String">
+        delete from tcm_case where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

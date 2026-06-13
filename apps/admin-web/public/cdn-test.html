@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>CDN Vue Test</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script src="https://unpkg.com/vue@3.4.0/dist/vue.global.js"></script>
+    <script>
+        const app = Vue.createApp({
+            template: `
+                <div style="padding: 20px; font-family: Arial, sans-serif; text-align: center;">
+                    <h1 style="color: #1f5fca;">CDN Vue 测试成功！</h1>
+                    <p>如果看到这个，说明 Vue 3 CDN 版本正常工作</p>
+                    <p>计数: {{ count }}</p>
+                    <button @click="increment" style="padding: 10px 20px; font-size: 16px; cursor: pointer;">
+                        点我计数
+                    </button>
+                </div>
+            `,
+            data() {
+                return {
+                    count: 0
+                }
+            },
+            methods: {
+                increment() {
+                    this.count++
+                }
+            }
+        })
+
+        app.mount('#app')
+        console.log('Vue CDN 版本挂载成功')
+    </script>
+</body>
+</html>

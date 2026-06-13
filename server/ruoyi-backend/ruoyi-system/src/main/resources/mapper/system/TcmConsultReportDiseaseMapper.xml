@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TcmConsultReportDiseaseMapper">
+
+    <resultMap type="TcmConsultReportDisease" id="TcmConsultReportDiseaseResult">
+        <id property="id" column="id" />
+        <result property="reportId" column="report_id" />
+        <result property="diseaseCode" column="disease_code" />
+        <result property="diseaseName" column="disease_name" />
+        <result property="diseasePath" column="disease_path" />
+        <result property="riskLevel" column="risk_level" />
+        <result property="riskReason" column="risk_reason" />
+        <result property="sortOrder" column="sort_order" />
+        <result property="createTime" column="create_time" />
+    </resultMap>
+
+    <select id="selectTcmConsultReportDiseaseListByReportId" parameterType="Long" resultMap="TcmConsultReportDiseaseResult">
+        select id, report_id, disease_code, disease_name, disease_path, risk_level, risk_reason, sort_order, create_time
+        from tcm_consult_report_disease
+        where report_id = #{reportId}
+        order by sort_order asc, id asc
+    </select>
+
+    <select id="selectTcmConsultReportDiseaseListByReportIds" resultMap="TcmConsultReportDiseaseResult">
+        select id, report_id, disease_code, disease_name, disease_path, risk_level, risk_reason, sort_order, create_time
+        from tcm_consult_report_disease
+        where report_id in
+        <foreach collection="list" item="reportId" open="(" separator="," close=")">
+            #{reportId}
+        </foreach>
+        order by report_id asc, sort_order asc, id asc
+    </select>
+
+    <insert id="batchInsertTcmConsultReportDisease">
+        insert into tcm_consult_report_disease (
+            report_id,
+            disease_code,
+            disease_name,
+            disease_path,
+            risk_level,
+            risk_reason,
+            sort_order,
+            create_time
+        ) values
+        <foreach collection="list" item="item" separator=",">
+            (
+                #{item.reportId},
+                #{item.diseaseCode},
+                #{item.diseaseName},
+                #{item.diseasePath},
+                #{item.riskLevel},
+                #{item.riskReason},
+                #{item.sortOrder},
+                #{item.createTime}
+            )
+        </foreach>
+    </insert>
+
+    <delete id="deleteTcmConsultReportDiseaseByReportId" parameterType="Long">
+        delete from tcm_consult_report_disease where report_id = #{reportId}
+    </delete>
+</mapper>

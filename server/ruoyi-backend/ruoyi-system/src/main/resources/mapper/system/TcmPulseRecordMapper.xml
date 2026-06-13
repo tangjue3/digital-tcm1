@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TcmPulseRecordMapper">
+
+    <resultMap type="TcmPulseRecord" id="TcmPulseRecordResult">
+        <id property="id" column="id" />
+        <result property="userId" column="user_id" />
+        <result property="userName" column="user_name" />
+        <result property="nickName" column="nick_name" />
+        <result property="phonenumber" column="phonenumber" />
+        <result property="deviceId" column="device_id" />
+        <result property="pulseRate" column="pulse_rate" />
+        <result property="signalQuality" column="signal_quality" />
+        <result property="rawData" column="raw_data" />
+        <result property="sampledAt" column="sampled_at" />
+        <result property="receivedAt" column="received_at" />
+        <result property="source" column="source" />
+        <result property="remark" column="remark" />
+    </resultMap>
+
+    <sql id="selectPulseRecordVo">
+        select
+            r.id,
+            r.user_id,
+            u.user_name,
+            u.nick_name,
+            u.phonenumber,
+            r.device_id,
+            r.pulse_rate,
+            r.signal_quality,
+            r.raw_data,
+            r.sampled_at,
+            r.received_at,
+            r.source,
+            r.remark
+        from tcm_pulse_record r
+        left join sys_user u on u.user_id = r.user_id
+    </sql>
+
+    <select id="selectPulseRecordList" parameterType="TcmPulseRecord" resultMap="TcmPulseRecordResult">
+        <include refid="selectPulseRecordVo" />
+        <where>
+            <if test="userId != null"> and r.user_id = #{userId}</if>
+            <if test="userName != null and userName != ''">
+                and (u.user_name like concat('%', #{userName}, '%') or u.nick_name like concat('%', #{userName}, '%'))
+            </if>
+            <if test="phonenumber != null and phonenumber != ''">
+                and (u.phonenumber like concat('%', #{phonenumber}, '%') or u.user_name like concat('%', #{phonenumber}, '%'))
+            </if>
+            <if test="deviceId != null and deviceId != ''"> and r.device_id = #{deviceId}</if>
+            <if test="source != null and source != ''"> and r.source = #{source}</if>
+            <if test="params.beginTime != null and params.beginTime != ''">
+                and r.sampled_at &gt;= #{params.beginTime}
+            </if>
+            <if test="params.endTime != null and params.endTime != ''">
+                and r.sampled_at &lt;= #{params.endTime}
+            </if>
+        </where>
+        order by r.sampled_at desc, r.id desc
+    </select>
+
+    <select id="selectLatestPulseRecordByUserId" parameterType="Long" resultMap="TcmPulseRecordResult">
+        <include refid="selectPulseRecordVo" />
+        where r.user_id = #{userId}
+        order by r.sampled_at desc, r.id desc
+        limit 1
+    </select>
+
+    <select id="selectPulseRecordById" parameterType="Long" resultMap="TcmPulseRecordResult">
+        <include refid="selectPulseRecordVo" />
+        where r.id = #{id}
+    </select>
+
+    <insert id="insertPulseRecord" parameterType="TcmPulseRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into tcm_pulse_record (
+            user_id,
+            device_id,
+            pulse_rate,
+            signal_quality,
+            raw_data,
+            sampled_at,
+            received_at,
+            source,
+            remark
+        ) values (
+            #{userId},
+            #{deviceId},
+            #{pulseRate},
+            #{signalQuality},
+            #{rawData},
+            #{sampledAt},
+            #{receivedAt},
+            #{source},
+            #{remark}
+        )
+    </insert>
+
+    <delete id="deletePulseRecordsByUserId" parameterType="Long">
+        delete from tcm_pulse_record where user_id = #{userId}
+    </delete>
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.TcmArticleMapper">
+    
+    <resultMap type="TcmArticle" id="TcmArticleResult">
+        <result property="id"    column="id"    />
+        <result property="articleTitle"    column="article_title"    />
+        <result property="articleType"    column="article_type"    />
+        <result property="imgurl"    column="imgurl"    />
+        <result property="articleContent"    column="article_content"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectTcmArticleVo">
+        select id, article_title, article_type, imgurl, article_content, create_by, create_time, update_by, update_time, remark from tcm_article
+    </sql>
+
+    <select id="selectTcmArticleList" parameterType="TcmArticle" resultMap="TcmArticleResult">
+        <include refid="selectTcmArticleVo"/>
+        <where>  
+            <if test="articleTitle != null  and articleTitle != ''"> and article_title like concat('%', #{articleTitle}, '%')</if>
+            <if test="articleType != null  and articleType != ''"> and article_type = #{articleType}</if>
+            <if test="imgurl != null  and imgurl != ''"> and imgurl = #{imgurl}</if>
+            <if test="articleContent != null  and articleContent != ''"> and article_content = #{articleContent}</if>
+        </where>
+    </select>
+    
+    <select id="selectTcmArticleById" parameterType="Long" resultMap="TcmArticleResult">
+        <include refid="selectTcmArticleVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertTcmArticle" parameterType="TcmArticle" useGeneratedKeys="true" keyProperty="id">
+        insert into tcm_article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="articleTitle != null and articleTitle != ''">article_title,</if>
+            <if test="articleType != null and articleType != ''">article_type,</if>
+            <if test="imgurl != null">imgurl,</if>
+            <if test="articleContent != null">article_content,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="articleTitle != null and articleTitle != ''">#{articleTitle},</if>
+            <if test="articleType != null and articleType != ''">#{articleType},</if>
+            <if test="imgurl != null">#{imgurl},</if>
+            <if test="articleContent != null">#{articleContent},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTcmArticle" parameterType="TcmArticle">
+        update tcm_article
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="articleTitle != null and articleTitle != ''">article_title = #{articleTitle},</if>
+            <if test="articleType != null and articleType != ''">article_type = #{articleType},</if>
+            <if test="imgurl != null">imgurl = #{imgurl},</if>
+            <if test="articleContent != null">article_content = #{articleContent},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteTcmArticleById" parameterType="Long">
+        delete from tcm_article where id = #{id}
+    </delete>
+
+    <delete id="deleteTcmArticleByIds" parameterType="String">
+        delete from tcm_article where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

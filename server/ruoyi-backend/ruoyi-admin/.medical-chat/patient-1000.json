@@ -1,0 +1,16 @@
+{
+  "patientUserId" : 1000,
+  "patientName" : "App Test User",
+  "patientPhone" : "13800138000",
+  "doctorUserId" : 1,
+  "doctorName" : "若依",
+  "updatedTime" : "2026-04-26 15:24:22",
+  "messages" : [ {
+    "messageId" : "ce6252ed84804291bc84a38a26823a7b",
+    "senderRole" : "doctor",
+    "senderUserId" : 1,
+    "senderName" : "若依",
+    "content" : "请按时服药，如有不适及时联系我。",
+    "sendTime" : "2026-04-26 15:24:22"
+  } ]
+}

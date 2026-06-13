@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.PrescriptionofdrugsMapper">
+    
+    <resultMap type="Prescriptionofdrugs" id="PrescriptionofdrugsResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="imgurl"    column="imgurl"    />
+        <result property="composition"    column="composition"    />
+        <result property="func"    column="Func"    />
+        <result property="indicationoftreatment"    column="IndicationOfTreatment"    />
+    </resultMap>
+
+    <sql id="selectPrescriptionofdrugsVo">
+        select id, name, imgurl, composition, Func, IndicationOfTreatment from prescriptionofdrugs
+    </sql>
+
+    <select id="selectPrescriptionofdrugsList" parameterType="Prescriptionofdrugs" resultMap="PrescriptionofdrugsResult">
+        <include refid="selectPrescriptionofdrugsVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="imgurl != null  and imgurl != ''"> and imgurl = #{imgurl}</if>
+            <if test="composition != null  and composition != ''"> and composition = #{composition}</if>
+            <if test="func != null  and func != ''"> and Func = #{func}</if>
+            <if test="indicationoftreatment != null  and indicationoftreatment != ''"> and IndicationOfTreatment = #{indicationoftreatment}</if>
+        </where>
+    </select>
+    
+    <select id="selectPrescriptionofdrugsById" parameterType="Long" resultMap="PrescriptionofdrugsResult">
+        <include refid="selectPrescriptionofdrugsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPrescriptionofdrugs" parameterType="Prescriptionofdrugs" useGeneratedKeys="true" keyProperty="id">
+        insert into prescriptionofdrugs
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="imgurl != null">imgurl,</if>
+            <if test="composition != null">composition,</if>
+            <if test="func != null">Func,</if>
+            <if test="indicationoftreatment != null">IndicationOfTreatment,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="imgurl != null">#{imgurl},</if>
+            <if test="composition != null">#{composition},</if>
+            <if test="func != null">#{func},</if>
+            <if test="indicationoftreatment != null">#{indicationoftreatment},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePrescriptionofdrugs" parameterType="Prescriptionofdrugs">
+        update prescriptionofdrugs
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="imgurl != null">imgurl = #{imgurl},</if>
+            <if test="composition != null">composition = #{composition},</if>
+            <if test="func != null">Func = #{func},</if>
+            <if test="indicationoftreatment != null">IndicationOfTreatment = #{indicationoftreatment},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePrescriptionofdrugsById" parameterType="Long">
+        delete from prescriptionofdrugs where id = #{id}
+    </delete>
+
+    <delete id="deletePrescriptionofdrugsByIds" parameterType="String">
+        delete from prescriptionofdrugs where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
